@@ -1,9 +1,9 @@
 const { UUIDV4, Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class LibraryCard extends Model {}
+class License extends Model {}
 
-LibraryCard.init(
+License.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,14 +11,18 @@ LibraryCard.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    card_number: {
+    license_number: {
       type: DataTypes.UUID,
       defaultValue: UUIDV4,
     },
-    reader_id: {
+    is_donor: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    driver_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'reader',
+        model: 'driver',
         key: 'id',
       },
     },
@@ -28,8 +32,8 @@ LibraryCard.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'library_card',
+    modelName: 'license',
   }
 );
 
-module.exports = LibraryCard;
+module.exports = License;
